@@ -24,30 +24,31 @@ const Sidebar = ({ collapsed, toggleCollapsed, className }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-   
-    const storedUserName = localStorage.getItem('userName');
-    if (storedUserName) {
-      setUserName(storedUserName);
-    }
-
-    
-    checkIfMobile();
-    
-    
-    window.addEventListener('resize', checkIfMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkIfMobile);
-    };
-  }, []);
-
-  const checkIfMobile = () => {
-    setIsMobile(window.innerWidth <= 768);
-   
-    if (window.innerWidth <= 768 && !collapsed && toggleCollapsed) {
-      toggleCollapsed();
-    }
-  };
+      const storedUserName = localStorage.getItem('userName');
+      if (storedUserName) {
+        setUserName(storedUserName);
+      }
+      
+      
+      const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768);
+        
+        if (window.innerWidth <= 768 && !collapsed && toggleCollapsed) {
+          toggleCollapsed();
+        }
+      };
+      
+      
+      handleResize();
+      
+      
+      window.addEventListener('resize', handleResize);
+      
+      
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, [collapsed, toggleCollapsed]); 
 
   const handleLogout = () => {
     localStorage.removeItem('token');

@@ -61,9 +61,9 @@ const nextConfig = {
   },
   
 
-  //experimental: {
-  //  esmExternals: 'loose', 
-  //}
+  experimental: {
+    esmExternals: 'loose', 
+  },
   output: 'standalone',
 };
 

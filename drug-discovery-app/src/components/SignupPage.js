@@ -7,6 +7,7 @@ import axios from 'axios';
 import styles from '../styles/Auth.module.css';
 import Footer from '../components/Footer';
 import HeaderComponent from '../components/Header';
+import Image from 'next/image';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -57,8 +58,14 @@ const SignupPage = () => {
           <div className={styles.authWrapper}>
             <Card className={styles.authCard}>
             <div className={styles.logoContainer}>
-              <img src="/images/logo.jpg" alt="Logo" className={styles.logo} />
-              </div>
+  <Image 
+    src="/images/logo.jpg" 
+    alt="Logo" 
+    className={styles.logo} 
+    width={150}  
+    height={50}  
+  />
+</div>
               
               <Title level={2} className={styles.authTitle}>Create Account</Title>
               <Text className={styles.authSubtitle}>Sign up to start using Scientific Computing for Drug Discovery</Text>

@@ -7,6 +7,7 @@ import axios from 'axios';
 import styles from '../styles/Auth.module.css';
 import Footer from '../components/Footer';
 import HeaderComponent from '../components/Header';
+import Image from 'next/image';
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
@@ -57,9 +58,15 @@ const LoginPage = () => {
         <div className={styles.authContainer}>
           <div className={styles.authWrapper}>
             <Card className={styles.authCard}>
-              <div className={styles.logoContainer}>
-                <img src="/images/logo.jpg" alt="Logo" className={styles.logo} />
-              </div>
+            <div className={styles.logoContainer}>
+  <Image 
+    src="/images/logo.jpg" 
+    alt="Logo" 
+    className={styles.logo} 
+    width={150}  
+    height={50}  
+  />
+</div>
               
               <Title level={2} className={styles.authTitle}>Welcome Back</Title>
               <Text className={styles.authSubtitle}>Sign in to continue to Scientific Computing for Drug Discovery</Text>

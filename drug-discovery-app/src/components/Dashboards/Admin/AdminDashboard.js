@@ -70,6 +70,8 @@ const DashboardPage = () => {
   // Fetch data from APIs
   useEffect(() => {
     const fetchDashboardData = async () => {
+
+   
       setLoading(true);
       setError(null);
       try {
@@ -148,7 +150,7 @@ const DashboardPage = () => {
     };
 
     fetchDashboardData();
-  }, []);
+  }, [processChartData]);
 
   const processChartData = (simulations, models, users) => {
     // Prepare simulations by status for pie chart

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Typography } from 'antd';
 import styles from '../styles/Header.module.css';
+import Image from 'next/image';
 
 const { Header } = Layout;
 const { Title } = Typography;
@@ -34,7 +35,13 @@ const HeaderComponent = () => {
 
   return (
     <Header className={styles.header}>
-      <img src="/images/logo.jpg" alt="Logo" className={styles.logo} />
+    <Image 
+    src="/images/logo.jpg" 
+    alt="Logo" 
+    className={styles.logo} 
+    width={150}  
+    height={50} 
+  />
       <div className={styles.movingTextContainer}>
         <div 
           className={styles.movingText} 

@@ -179,7 +179,7 @@ const ResearcherDashboardPage = () => {
     };
 
     fetchDashboardData();
-  }, []);
+  }, [processChartData]);
 
   const processChartData = (simulations, models) => {
    
