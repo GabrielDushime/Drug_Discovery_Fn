@@ -1,0 +1,137 @@
+/* DashboardLayout.module.css */
+.dashboardLayout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Fixed header at the top */
+  .fixedHeader {
+    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  
+  /* Main content area between header and footer */
+  .bodyContent {
+    display: flex;
+    flex: 1;
+    min-height: calc(100vh - 160px); /* Adjust based on your header and footer height */
+  }
+  
+  /* Sidebar styles */
+  .sidebar {
+    position: relative;
+    height: auto;
+    /* This ensures the sidebar only starts after the header and doesn't overlap */
+    margin-top: 0;
+    z-index: 90;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Content area styles */
+  .contentArea {
+    padding: 24px;
+    transition: all 0.3s ease;
+    overflow-x: hidden;
+    width: 100%;
+    /* Ensure content has proper spacing at the bottom to not be covered by footer */
+    padding-bottom: 32px;
+  }
+  
+  .collapsedContent {
+    margin-left: 80px;
+  }
+  
+  .mobileContent {
+    margin-left: 0;
+    padding: 16px;
+  }
+  
+  /* Fixed footer at the bottom */
+  .fixedFooter {
+    width: 100%;
+    margin-top: auto;
+  }
+  
+  /* Dashboard.module.css - Update existing styles */
+  .dashboardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .welcomeCard {
+    background: linear-gradient(135deg, #fff8f0 0%, #fff 100%);
+    border-left: 4px solid #ff7700;
+    margin-bottom: 1rem;
+  }
+  
+  .welcomeTitle {
+    color: #333;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .welcomeText {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 0 !important;
+  }
+  
+  .statsRow {
+    margin-bottom: 1rem;
+  }
+  
+  .statCard {
+    height: 100%;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+  }
+  
+  .statCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .statIcon {
+    color: #ff7700;
+    font-size: 1.25rem;
+    margin-right: 8px;
+  }
+  
+  .activityCard {
+    border-radius: 8px;
+  }
+  
+  .activityCard :global(.ant-card-head) {
+    background-color: #fff8f0;
+    border-bottom: 1px solid #ffebcc;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .bodyContent {
+      min-height: calc(100vh - 140px); /* Adjust for smaller header/footer on mobile */
+    }
+  
+    .welcomeTitle {
+      font-size: 1.5rem !important;
+    }
+      
+    .welcomeText {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .welcomeTitle {
+      font-size: 1.25rem !important;
+    }
+      
+    .statCard {
+      text-align: center;
+    }
+  }

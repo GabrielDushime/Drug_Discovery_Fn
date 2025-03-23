@@ -1,0 +1,152 @@
+.profileContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  .profileCard {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+  
+  .profileHeader {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+  }
+  
+  .avatarSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  @media (min-width: 576px) {
+    .avatarSection {
+      flex-direction: row;
+      text-align: left;
+      gap: 2rem;
+    }
+  }
+  
+  .avatarWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  @media (min-width: 576px) {
+    .avatarWrapper {
+      margin-bottom: 0;
+    }
+  }
+  
+  .avatar {
+    background-color: #ff7700;
+    border: 4px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .avatarSpin {
+    margin: 2rem;
+  }
+  
+  .avatarActions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .avatarButton {
+    font-size: 12px;
+  }
+  
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .userName {
+    margin-bottom: 0.25rem !important;
+    color: #333;
+  }
+  
+  .editButton {
+    margin-top: 1rem;
+    align-self: flex-start;
+  }
+  
+  .form {
+    margin-top: 1rem;
+  }
+  
+  .formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .profileDetails {
+    padding: 0 0.5rem;
+  }
+  
+  .infoCard {
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #fff 0%, #f9f9f9 100%);
+    transition: all 0.3s ease;
+  }
+  
+  .infoCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+  
+  .infoItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .infoItem:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  
+  .loadingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+  }
+  
+  .loadingText {
+    margin-top: 1rem;
+    color: #666;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .profileContainer {
+      padding: 1rem 0.5rem;
+    }
+    
+    .infoItem {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .profileCard {
+      box-shadow: none;
+      border: none;
+    }
+  }

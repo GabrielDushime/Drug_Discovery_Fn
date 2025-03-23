@@ -1,0 +1,168 @@
+/* Main container */
+.visualizationContainer {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .visualizationCard {
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+  }
+  
+  .visualizationHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .visualizationTabs {
+    margin-bottom: 16px;
+  }
+  
+  /* Controls panel */
+  .controlsPanel {
+    margin-bottom: 24px;
+    padding: 16px;
+    background-color: #fafafa;
+    border-radius: 8px;
+  }
+  
+  .fullWidthSelect {
+    width: 100%;
+    margin-top: 8px;
+  }
+  
+  .viewModeRadio {
+    display: flex;
+    margin-top: 8px;
+  }
+  
+  .visualControls {
+    width: 100%;
+  }
+  
+  /* Visualization canvas */
+  .visualizationWrapper {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  
+  .visualizationCanvas {
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+  }
+  
+  .fullscreenButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    opacity: 0.7;
+  }
+  
+  .fullscreenButton:hover {
+    opacity: 1;
+  }
+  
+  /* Trajectory playback controls */
+  .trajectoryControls {
+    width: 100%;
+  }
+  
+  .playbackControls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .frameSlider {
+    flex: 1;
+    margin-left: 16px;
+  }
+  
+  .speedSlider {
+    margin-top: 8px;
+  }
+  
+  /* Loading and empty states */
+  .loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 48px 0;
+    text-align: center;
+  }
+  
+  /* Info section */
+  .infoSection {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #f0f0f0;
+  }
+  
+  .statsSection {
+    padding: 16px;
+    background-color: #fafafa;
+    border-radius: 8px;
+  }
+  
+  .statsList {
+    margin-top: 12px;
+    padding-left: 20px;
+  }
+  
+  .statsList li {
+    margin-bottom: 8px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .visualizationHeader {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .viewModeRadio {
+      flex-wrap: wrap;
+    }
+    
+    .visualizationWrapper {
+      height: 400px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .visualizationContainer {
+      padding: 10px;
+    }
+    
+    .controlsPanel {
+      padding: 12px;
+    }
+    
+    .visualizationWrapper {
+      height: 300px;
+    }
+  }

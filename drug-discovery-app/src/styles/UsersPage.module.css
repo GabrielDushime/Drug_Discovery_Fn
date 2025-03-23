@@ -1,0 +1,83 @@
+/* UsersPage.module.css */
+.usersContainer {
+    padding: 0;
+  }
+  
+  .usersCard {
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .usersHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .searchInput {
+    min-width: 250px;
+  }
+  
+  .actionSpace {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .tableWrapper {
+    overflow-x: auto;
+    width: 100%;
+  }
+  
+  .usersTable {
+    width: 100%;
+  }
+  
+  .usersTable :global(.ant-table-thead > tr > th) {
+    background-color: #fff8f0;
+    white-space: nowrap;
+  }
+  
+  .usersTable :global(.ant-table-tbody > tr:hover > td) {
+    background-color: #fffaf0;
+  }
+  
+  .usersTable :global(.ant-table-cell) {
+    padding: 12px 8px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .usersHeader {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .searchInput {
+      width: 100%;
+    }
+    
+    .actionSpace {
+      width: 100%;
+      justify-content: space-between;
+    }
+    
+    .usersTable :global(.ant-table-cell) {
+      padding: 8px 4px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .usersCard {
+      border-radius: 0;
+      box-shadow: none;
+      margin: -12px;
+    }
+    
+    .tableWrapper :global(.ant-table-content) {
+      font-size: 13px;
+    }
+  }

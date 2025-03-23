@@ -1,0 +1,65 @@
+.footer {
+  background: #FF7F00;
+  background: linear-gradient(135deg, #FF7F00, #CC5500); 
+  color: #fff;
+  padding: 40px 24px 24px;
+  box-shadow: 0 -4px 10px rgba(204, 85, 0, 0.2); 
+
+}
+
+.footer h4 {
+  color: #fff !important;
+  margin-bottom: 16px !important;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #FFCC99; 
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+.footer p {
+  color: rgba(255, 255, 255, 0.9) !important;
+  line-height: 1.6;
+}
+
+.footerList {
+  padding-left: 16px;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+.footerList li {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 16px;
+}
+
+.footerList li:before {
+  content: "•";
+  color: #FFAC42; 
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.copyright {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  background-color: wheat; 
+}
+
+.copyright span {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.9rem;
+  color: black !important;
+}
+
+
+.footerList li:hover {
+  color: #FFBF00; 
+  transform: translateX(2px);
+  transition: all 0.3s ease;
+}

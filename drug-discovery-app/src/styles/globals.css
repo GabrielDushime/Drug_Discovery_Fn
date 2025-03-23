@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Ant Design overrides */
+.ant-btn-primary {
+  background-color: #FF7F00 ;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  transform: translateY(-2px);
+  background: #FF4500 !important;
+  border-color: #FF4500 !important;
+  box-shadow: 0 6px 16px rgba(255, 69, 0, 0.5);
+}
+
+.ant-carousel .slick-dots li button {
+  background: wheat;
+  opacity: 0.4;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+  opacity: 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}

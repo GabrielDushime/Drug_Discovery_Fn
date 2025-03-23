@@ -1,0 +1,209 @@
+.dashboardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 16px;
+  }
+  
+  .welcomeCard {
+    background: linear-gradient(135deg, #ff7700 0%, #ff9944 100%);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    color: white;
+  }
+  .welcomeCard button{
+    background-color: wheat!important;
+  } 
+  .welcomeCard button:hover{
+    background-color: #faad14!important;
+    
+  } 
+  .welcomeTitle {
+    color: white !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .welcomeText {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.85) !important;
+    margin-bottom: 0 !important;
+    max-width: 800px;
+  }
+  
+  .statsRow {
+    margin-bottom: 1rem;
+  }
+  
+  .chartsRow {
+    margin-bottom: 1rem;
+  }
+  
+  .statCard {
+    height: 100%;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  }
+  
+  .statCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .statIcon {
+    margin-right: 8px;
+    font-size: 1.25rem;
+    color: #ff7700;
+  }
+  
+  .activityCard {
+    border-radius: 8px;
+  }
+  
+  .activityCard :global(.ant-card-head) {
+    background-color: #fff8f0;
+    border-bottom: 1px solid #ffebcc;
+  }
+  
+  .chartCard {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  }
+  
+  .chartCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .tableCard {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  
+  .tableCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 64px);
+    flex-direction: column;
+  }
+  
+  .legendContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .chartTitle {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .usageTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .usageTable th {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+  }
+  
+  .usageTable td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .usageBar {
+    width: 100%;
+    height: 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .usageBarFill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+  
+  /* Tooltip Styles */
+  .tooltipContainer {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+  }
+  
+  /* Chart responsiveness */
+  .recharts-responsive-container {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboardContainer {
+      padding: 12px;
+    }
+    
+    .welcomeCard {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .statsRow {
+      margin-bottom: 16px;
+    }
+    
+    .welcomeText {
+      font-size: 14px;
+    }
+    
+    .chartsRow {
+      margin-bottom: 16px;
+    }
+    
+    .usageTable th, .usageTable td {
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+    
+    .chartCard, .tableCard {
+      margin-bottom: 16px;
+    }
+    
+    .welcomeTitle {
+      font-size: 1.5rem !important;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1200px) {
+    .usageTable th, .usageTable td {
+      padding: 8px 10px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .welcomeTitle {
+      font-size: 1.25rem !important;
+    }
+    
+    .statCard {
+      text-align: center;
+    }
+  }

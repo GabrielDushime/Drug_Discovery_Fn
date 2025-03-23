@@ -1,0 +1,119 @@
+.layout {
+  min-height: 100vh;
+}
+
+/* Content styles */
+.content {
+  padding: 24px;
+  background: #FFF8F2; /* Light cream background */
+}
+
+.heroSection {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Carousel styles */
+.carousel {
+  margin-top: 25px;
+  margin-bottom: 32px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(204, 85, 0, 0.2);
+}
+
+.carouselItem {
+  height: 400px;
+}
+
+.carouselContent {
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+}
+
+.carouselOverlay {
+  background: linear-gradient(transparent, rgba(183, 65, 14, 0.8));
+  width: 100%;
+  padding: 32px;
+  color: #fff;
+}
+
+.carouselTitle {
+  color: #fff !important;
+  margin-bottom: 8px !important;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  border-left: 4px solid #FFBF00;
+  padding-left: 12px;
+}
+
+.carouselDescription {
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-size: 16px;
+  margin-bottom: 0 !important;
+  font-weight: 500;
+}
+
+/* Button styles */
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.loginButton {
+  font-size: 18px;
+  height: 48px;
+  padding: 0 32px;
+  border-radius: 24px;
+  background: #FF7F00 !important;
+  border-color: #FF7F00 !important;
+  box-shadow: 0 4px 12px rgba(255, 127, 0, 0.4);
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.loginButton:hover {
+  transform: translateY(-2px);
+  background: #FF4500 !important;
+  border-color: #FF4500 !important;
+  box-shadow: 0 6px 16px rgba(255, 69, 0, 0.5);
+}
+
+.loginButton:focus {
+  background: #CC5500 !important;
+  border-color: #CC5500 !important;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .carouselItem {
+    height: 300px;
+  }
+  
+  .carouselOverlay {
+    padding: 24px;
+  }
+  
+  .buttonContainer {
+    margin: 32px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .carouselItem {
+    height: 250px;
+  }
+  
+  .carouselTitle {
+    font-size: 20px !important;
+  }
+  
+  .carouselDescription {
+    font-size: 14px;
+  }
+}
