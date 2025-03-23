@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Row, Col, Card, Statistic, Typography, Space, Table, Tag, Spin, Alert, Empty } from 'antd';
 import {
   UserOutlined,
@@ -59,7 +59,6 @@ const DashboardPage = () => {
     return localStorage.getItem('token') || '';
   };
 
-  // Get user name from localStorage
   useEffect(() => {
     const storedUserName = localStorage.getItem('userName');
     if (storedUserName) {
@@ -67,92 +66,8 @@ const DashboardPage = () => {
     }
   }, []);
 
-  // Fetch data from APIs
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-
-   
-      setLoading(true);
-      setError(null);
-      try {
-        // Fetch users data
-        const usersResponse = await axios.get('http://localhost:8000/users', {
-          headers: {
-            Authorization: `Bearer ${getAuthToken()}`,
-          },
-        });
-        
-        // Fetch molecular models data
-        const modelsResponse = await axios.get('http://localhost:8000/molecular-models/admin/all', {
-          headers: {
-            Authorization: `Bearer ${getAuthToken()}`,
-          },
-        });
-        
-        // Fetch simulations data
-        const simulationsResponse = await axios.get('http://localhost:8000/simulations', {
-          headers: {
-            Authorization: `Bearer ${getAuthToken()}`,
-          },
-        });
-        
-        // Calculate statistics
-        const users = usersResponse.data;
-        const models = modelsResponse.data;
-        const simulations = simulationsResponse.data;
-        
-        const completedSimulations = simulations.filter(
-          sim => sim.status === 'completed'
-        ).length;
-        
-        // Set statistics
-        setStats({
-          users: users.length,
-          models: models.length,
-          simulations: simulations.length,
-          completedSimulations
-        });
-        
-        // Get recent users (5 most recent)
-        const sortedUsers = [...users].sort((a, b) => 
-          new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
-        ).slice(0, 5);
-        setRecentUsers(sortedUsers);
-        
-        // Get recent simulations (5 most recent)
-        const sortedSimulations = [...simulations].sort((a, b) => 
-          new Date(b.startedAt || b.createdAt || 0) - new Date(a.startedAt || a.createdAt || 0)
-        ).slice(0, 5);
-        setRecentSimulations(sortedSimulations);
-        
-        // Process data for charts
-        processChartData(simulations, models, users);
-        
-      } catch (err) {
-        console.error('Error fetching dashboard data:', err);
-        setError('Failed to load dashboard data. Please try again later.');
-        
-        // Fallback to mock data for development purposes
-        if (process.env.NODE_ENV === 'development') {
-          setStats({
-            users: 124,
-            models: 37,
-            simulations: 56,
-            completedSimulations: 42
-          });
-          setRecentUsers([]);
-          setRecentSimulations([]);
-          generateMockChartData();
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDashboardData();
-  }, [processChartData]);
-
-  const processChartData = (simulations, models, users) => {
+  // Wrap processChartData in useCallback to prevent recreation on every render
+  const processChartData = useCallback((simulations, models, users) => {
     // Prepare simulations by status for pie chart
     const statusCounts = {
       pending: 0,
@@ -210,8 +125,81 @@ const DashboardPage = () => {
     }));
     
     setSimulationTrends(trendData);
-  };
-  
+  }, []);  // Empty dependency array to ensure it doesn't change
+ 
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const usersResponse = await axios.get('http://localhost:8000/users', {
+          headers: {
+            Authorization: `Bearer ${getAuthToken()}`,
+          },
+        });
+        
+        const modelsResponse = await axios.get('http://localhost:8000/molecular-models/admin/all', {
+          headers: {
+            Authorization: `Bearer ${getAuthToken()}`,
+          },
+        });
+        
+        const simulationsResponse = await axios.get('http://localhost:8000/simulations', {
+          headers: {
+            Authorization: `Bearer ${getAuthToken()}`,
+          },
+        });
+        
+        const users = usersResponse.data;
+        const models = modelsResponse.data;
+        const simulations = simulationsResponse.data;
+        
+        const completedSimulations = simulations.filter(
+          sim => sim.status === 'completed'
+        ).length;
+        
+        setStats({
+          users: users.length,
+          models: models.length,
+          simulations: simulations.length,
+          completedSimulations
+        });
+        
+        const sortedUsers = [...users].sort((a, b) => 
+          new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+        ).slice(0, 3);
+        setRecentUsers(sortedUsers);
+        
+        const sortedSimulations = [...simulations].sort((a, b) => 
+          new Date(b.startedAt || b.createdAt || 0) - new Date(a.startedAt || a.createdAt || 0)
+        ).slice(0, 3);
+        setRecentSimulations(sortedSimulations);
+        
+        processChartData(simulations, models, users);
+        
+      } catch (err) {
+        console.error('Error fetching dashboard data:', err);
+        setError('Failed to load dashboard data. Please try again later.');
+        
+        if (process.env.NODE_ENV === 'development') {
+          setStats({
+            users: 124,
+            models: 37,
+            simulations: 56,
+            completedSimulations: 42
+          });
+          setRecentUsers([]);
+          setRecentSimulations([]);
+          generateMockChartData();
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, [processChartData]);  // Include processChartData in dependencies
+
   const generateMockChartData = () => {
     // Mock data for charts in development
     setSimulationsByStatus([
@@ -364,6 +352,7 @@ const DashboardPage = () => {
       </div>
     );
   };
+
   const LineChartComponent = ({ data }) => {
     return (
       <div style={{ width: '100%', height: 240, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -384,11 +373,6 @@ const DashboardPage = () => {
       </div>
     );
   };
-  
-  
-    
-  
-
 
   if (loading) {
     return (
@@ -516,7 +500,6 @@ const DashboardPage = () => {
           </Col>
         </Row>
 
-        
         {/* Recent Activity Sections */}
         <Row gutter={[16, 16]} className={styles.activityRow}>
           <Col xs={24} lg={12}>
@@ -562,5 +545,8 @@ const DashboardPage = () => {
     </DashboardLayout>
   );
 };
+
+
+export const unstable_noSSR = true;
 
 export default DashboardPage;

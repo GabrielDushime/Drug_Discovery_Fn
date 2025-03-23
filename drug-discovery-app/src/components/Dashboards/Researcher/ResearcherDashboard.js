@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Row, Col, Card, Statistic, Typography, Space, Table, Tag, Spin, Alert, Empty, Button } from 'antd';
 import {
   ExperimentOutlined,
@@ -26,7 +26,13 @@ import {
 
 const { Title, Paragraph, Text } = Typography;
 
+// Prevent static generation issues
+export const getServerSideProps = async () => {
+  return { props: {} };
+};
+
 const ResearcherDashboardPage = () => {
+  const isBrowser = typeof window !== 'undefined';
   const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,148 +47,52 @@ const ResearcherDashboardPage = () => {
   const [simulationsByStatus, setSimulationsByStatus] = useState([]);
   const [simulationTrends, setSimulationTrends] = useState([]);
   const [modelUsage, setModelUsage] = useState([]);
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+  const [windowWidth, setWindowWidth] = useState(isBrowser ? window.innerWidth : 1200);
 
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    if (typeof window !== 'undefined') {
+    if (isBrowser) {
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }
-  }, []);
+  }, [isBrowser]);
 
   const getAuthToken = () => {
+    if (!isBrowser) return '';
     return localStorage.getItem('token') || '';
   };
 
   useEffect(() => {
-    const storedUserName = localStorage.getItem('userName');
-    if (storedUserName) {
-      setUserName(storedUserName);
-    }
-  }, []);
-
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-     
-        const token = getAuthToken();
-        if (!token) {
-          setError('No authentication token found. Please log in again.');
-          setLoading(false);
-          return;
-        }
-
-        try {
-          let models = [];
-          let simulations = [];
-          
-       
-          try {
-            const modelsResponse = await axios.get(`http://localhost:8000/molecular-models`, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
-            models = modelsResponse.data || [];
-          } catch (modelErr) {
-            if (modelErr.response && modelErr.response.status !== 404) {
-              throw modelErr;
-            }
-          }
-          
-          try {
-            const simulationsResponse = await axios.get(`http://localhost:8000/simulations/my-simulations`, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
-            simulations = simulationsResponse.data || [];
-          } catch (simErr) {
-           
-            if (simErr.response && simErr.response.status !== 404) {
-              throw simErr;
-            }
-          }
-          
-        
-          const completedSimulations = simulations.filter(
-            sim => sim.status === 'completed'
-          ).length;
-          
-          const successRate = simulations.length > 0 
-            ? Math.round((completedSimulations / simulations.length) * 100) 
-            : 0;
-          
-          
-          setStats({
-            models: models.length,
-            simulations: simulations.length,
-            completedSimulations,
-            successRate
-          });
-          
-         
-          const sortedModels = [...models].sort((a, b) => 
-            new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
-          ).slice(0, 5);
-          setRecentModels(sortedModels);
-          
-        
-          const sortedSimulations = [...simulations].sort((a, b) => 
-            new Date(b.startedAt || b.createdAt || 0) - new Date(a.startedAt || a.createdAt || 0)
-          ).slice(0, 5);
-          setRecentSimulations(sortedSimulations);
-          
-        
-          processChartData(simulations, models);
-        } catch (err) {
-          console.error('Error fetching dashboard data:', err);
-          
-          if (err.response) {
-            if (err.response.status === 403) {
-              setError('Access forbidden. Your account may not have permission to view this data or your session has expired.');
-              localStorage.removeItem('token'); 
-            } else if (err.response.status === 401) {
-              setError('Authentication failed. Please log in again.');
-              localStorage.removeItem('token');
-            } else {
-              setError(`API Error: ${err.response.status} - ${err.response.data?.message || 'Unknown error'}`);
-            }
-          } else if (err.request) {
-            setError('Network error: Unable to connect to the server. Please check your connection.');
-          } else {
-            setError('An unexpected error occurred. Please try again later.');
-          }
-          
-        
-          setStats({
-            models: 0,
-            simulations: 0,
-            completedSimulations: 0,
-            successRate: 0
-          });
-          setRecentModels([]);
-          setRecentSimulations([]);
-          setSimulationsByStatus([]);
-          setModelUsage([]);
-          setSimulationTrends([]);
-        }
-      } finally {
-        setLoading(false);
+    if (isBrowser) {
+      const storedUserName = localStorage.getItem('userName');
+      if (storedUserName) {
+        setUserName(storedUserName);
       }
-    };
+    }
+  }, [isBrowser]);
 
-    fetchDashboardData();
-  }, [processChartData]);
+  // Define getStatusColor here since it's used by processChartData
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'pending':
+        return '#faad14'; 
+      case 'processing':
+        return '#1890ff'; 
+      case 'completed':
+        return '#52c41a'; 
+      case 'failed':
+        return '#f5222d'; 
+      default:
+        return '#d9d9d9'; 
+    }
+  };
 
-  const processChartData = (simulations, models) => {
-   
+  // Move processChartData before the useEffect that depends on it and wrap it in useCallback
+  const processChartData = useCallback((simulations, models) => {
+    // Status chart data
     const statusCounts = {
       pending: 0,
       processing: 0,
@@ -203,7 +113,7 @@ const ResearcherDashboardPage = () => {
     }));
     setSimulationsByStatus(statusData);
     
-   
+    // Model usage chart data
     const modelUsageMap = {};
     simulations.forEach(sim => {
       const modelId = sim.modelId || 'unknown';
@@ -212,7 +122,6 @@ const ResearcherDashboardPage = () => {
       }
       modelUsageMap[modelId]++;
     });
-    
     
     const modelUsageData = [];
     for (const modelId in modelUsageMap) {
@@ -223,13 +132,11 @@ const ResearcherDashboardPage = () => {
       });
     }
     
-    
     modelUsageData.sort((a, b) => b.simulations - a.simulations);
     setModelUsage(modelUsageData.slice(0, 5));
     
-    
+    // Simulation trends chart data
     if (simulations.length > 0) {
-      
       const monthlyData = {};
       simulations.forEach(sim => {
         const date = new Date(sim.startedAt || sim.createdAt || new Date());
@@ -254,7 +161,6 @@ const ResearcherDashboardPage = () => {
         }
       });
       
-    
       const trendsData = Object.values(monthlyData).sort((a, b) => {
         return new Date(a.name) - new Date(b.name);
       });
@@ -263,22 +169,114 @@ const ResearcherDashboardPage = () => {
     } else {
       setSimulationTrends([]);
     }
-  };
+  }, []);
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'pending':
-        return '#faad14'; 
-      case 'processing':
-        return '#1890ff'; 
-      case 'completed':
-        return '#52c41a'; 
-      case 'failed':
-        return '#f5222d'; 
-      default:
-        return '#d9d9d9'; 
-    }
-  };
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const token = getAuthToken();
+        if (!token) {
+          setError('No authentication token found. Please log in again.');
+          setLoading(false);
+          return;
+        }
+
+        try {
+          let models = [];
+          let simulations = [];
+          
+          try {
+            const modelsResponse = await axios.get(`http://localhost:8000/molecular-models`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            models = modelsResponse.data || [];
+          } catch (modelErr) {
+            if (modelErr.response && modelErr.response.status !== 404) {
+              throw modelErr;
+            }
+          }
+          
+          try {
+            const simulationsResponse = await axios.get(`http://localhost:8000/simulations/my-simulations`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            simulations = simulationsResponse.data || [];
+          } catch (simErr) {
+            if (simErr.response && simErr.response.status !== 404) {
+              throw simErr;
+            }
+          }
+          
+          const completedSimulations = simulations.filter(
+            sim => sim.status === 'completed'
+          ).length;
+          
+          const successRate = simulations.length > 0 
+            ? Math.round((completedSimulations / simulations.length) * 100) 
+            : 0;
+          
+          setStats({
+            models: models.length,
+            simulations: simulations.length,
+            completedSimulations,
+            successRate
+          });
+          
+          const sortedModels = [...models].sort((a, b) => 
+            new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+          ).slice(0, 5);
+          setRecentModels(sortedModels);
+          
+          const sortedSimulations = [...simulations].sort((a, b) => 
+            new Date(b.startedAt || b.createdAt || 0) - new Date(a.startedAt || a.createdAt || 0)
+          ).slice(0, 5);
+          setRecentSimulations(sortedSimulations);
+          
+          processChartData(simulations, models);
+        } catch (err) {
+          console.error('Error fetching dashboard data:', err);
+          
+          if (err.response) {
+            if (err.response.status === 403) {
+              setError('Access forbidden. Your account may not have permission to view this data or your session has expired.');
+              if (isBrowser) localStorage.removeItem('token'); 
+            } else if (err.response.status === 401) {
+              setError('Authentication failed. Please log in again.');
+              if (isBrowser) localStorage.removeItem('token');
+            } else {
+              setError(`API Error: ${err.response.status} - ${err.response.data?.message || 'Unknown error'}`);
+            }
+          } else if (err.request) {
+            setError('Network error: Unable to connect to the server. Please check your connection.');
+          } else {
+            setError('An unexpected error occurred. Please try again later.');
+          }
+          
+          setStats({
+            models: 0,
+            simulations: 0,
+            completedSimulations: 0,
+            successRate: 0
+          });
+          setRecentModels([]);
+          setRecentSimulations([]);
+          setSimulationsByStatus([]);
+          setModelUsage([]);
+          setSimulationTrends([]);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []); // Remove processChartData from the dependency array since it's now wrapped in useCallback
 
   const getStatusTag = (status) => {
     switch (status) {
@@ -365,38 +363,35 @@ const ResearcherDashboardPage = () => {
       render: date => formatDate(date),
       responsive: ['lg']
     },
-   
   ];
 
   const PieChartComponent = ({ data }) => {
-      const COLORS = ['#52c41a', '#1890ff', '#faad14', '#f5222d', '#d9d9d9'];
-    
-      return (
-        <div style={{ width: '100%', height: 300, display: 'flex', justifyContent: 'center' }}>
-          <PieChart width={340} height={300} margin={{ top: 20, right: 40, bottom: 40, left: 40 }}>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="40%"
-              labelLine={true}
-              label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
-              outerRadius={60}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.fill || COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip formatter={(value) => [`${value}`, 'Count']} />
-            <Legend layout="horizontal" verticalAlign="bottom" align="center" wrapperStyle={{ paddingTop: 20 }} />
-          </PieChart>
-        </div>
-      );
-    };
+    const COLORS = ['#52c41a', '#1890ff', '#faad14', '#f5222d', '#d9d9d9'];
   
-    
-  
+    return (
+      <div style={{ width: '100%', height: 300, display: 'flex', justifyContent: 'center' }}>
+        <PieChart width={340} height={300} margin={{ top: 20, right: 40, bottom: 40, left: 40 }}>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="40%"
+            labelLine={true}
+            label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+            outerRadius={60}
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.fill || COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip formatter={(value) => [`${value}`, 'Count']} />
+          <Legend layout="horizontal" verticalAlign="bottom" align="center" wrapperStyle={{ paddingTop: 20 }} />
+        </PieChart>
+      </div>
+    );
+  };
+
   const LineChartComponent = ({ data }) => {
     if (!data || data.length === 0) {
       return <Empty description="No trend data available" />;
@@ -422,11 +417,13 @@ const ResearcherDashboardPage = () => {
     );
   };
 
- 
-
   const handleLogin = () => {
-    
     window.location.href = '/login';
+  };
+
+  // Add this function that was referenced but missing
+  const handleRetry = () => {
+    window.location.reload();
   };
 
   if (loading) {
@@ -621,13 +618,9 @@ const ResearcherDashboardPage = () => {
             </Card>
           </Col>
         </Row>
-        
-       
 
         {/* Recent Activity Sections */}
         <Row gutter={[16, 16]} className={styles.activityRow}>
-       
-
           <Col xs={24} lg={12}>
             <Card 
               title={<Title level={4}><ExperimentOutlined /> Recent Simulations</Title>}
@@ -647,7 +640,6 @@ const ResearcherDashboardPage = () => {
               )}
             </Card>
           </Col>
-
         </Row>
       </div>
     </DashboardLayout>
