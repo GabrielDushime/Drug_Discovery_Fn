@@ -65,6 +65,7 @@ const nextConfig = {
     esmExternals: 'loose', 
   },
   output: 'standalone',
+   output: 'export',
 };
 
 module.exports = nextConfig;

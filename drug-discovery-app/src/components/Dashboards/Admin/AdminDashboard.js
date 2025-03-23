@@ -66,9 +66,9 @@ const DashboardPage = () => {
     }
   }, []);
 
-  // Wrap processChartData in useCallback to prevent recreation on every render
+ 
   const processChartData = useCallback((simulations, models, users) => {
-    // Prepare simulations by status for pie chart
+    
     const statusCounts = {
       pending: 0,
       processing: 0,
@@ -89,7 +89,7 @@ const DashboardPage = () => {
     }));
     setSimulationsByStatus(statusData);
     
-    // Prepare simulations by type for bar chart
+ 
     const typeCounts = {};
     simulations.forEach(sim => {
       const type = sim.type || 'Unknown';
@@ -102,7 +102,7 @@ const DashboardPage = () => {
     }));
     setSimulationsByType(typeData);
     
-    // Prepare model usage data
+   
     const modelUsageData = models.slice(0, 5).map(model => {
       const simulationsUsingModel = simulations.filter(sim => 
         sim.modelId === model.id
@@ -116,7 +116,7 @@ const DashboardPage = () => {
     
     setModelUsage(modelUsageData);
     
-    // Prepare simulation trends (mock data as we don't have real trend data)
+   
     const mockMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
     const trendData = mockMonths.map(month => ({
       name: month,
@@ -125,7 +125,7 @@ const DashboardPage = () => {
     }));
     
     setSimulationTrends(trendData);
-  }, []);  // Empty dependency array to ensure it doesn't change
+  }, []);  
  
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -198,10 +198,10 @@ const DashboardPage = () => {
     };
 
     fetchDashboardData();
-  }, [processChartData]);  // Include processChartData in dependencies
+  }, [processChartData]);  
 
   const generateMockChartData = () => {
-    // Mock data for charts in development
+    
     setSimulationsByStatus([
       { name: 'completed', value: 42, fill: '#52c41a' },
       { name: 'processing', value: 8, fill: '#1890ff' },
@@ -237,15 +237,15 @@ const DashboardPage = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'pending':
-        return '#faad14'; // Warning yellow
+        return '#faad14'; 
       case 'processing':
-        return '#1890ff'; // Processing blue
+        return '#1890ff'; 
       case 'completed':
-        return '#52c41a'; // Success green
+        return '#52c41a'; 
       case 'failed':
-        return '#f5222d'; // Error red
+        return '#f5222d'; 
       default:
-        return '#d9d9d9'; // Default gray
+        return '#d9d9d9'; 
     }
   };
 
