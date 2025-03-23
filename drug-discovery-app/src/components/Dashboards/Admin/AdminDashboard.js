@@ -19,7 +19,6 @@ import axios from 'axios';
 import {
    PieChart, Pie, 
    LineChart, Line,
-   BarChart, Bar,
    Cell, XAxis,
    YAxis, CartesianGrid,
    Tooltip, Legend 
