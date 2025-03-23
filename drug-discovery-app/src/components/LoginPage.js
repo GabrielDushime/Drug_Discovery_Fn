@@ -121,7 +121,7 @@ const LoginPage = () => {
                 <Divider plain>Or</Divider>
                 
                 <div className={styles.authRedirect}>
-                  <Text>Don't have an account?</Text>
+                <Text>Don&apos;t have an account?</Text>
                   <Link href="/signup" className={styles.redirectLink}>
                     Sign up now
                   </Link>
