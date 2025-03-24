@@ -81,7 +81,7 @@ const SimulationsPage = () => {
 
   const fetchMolecularModels = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/molecular-models', {
+      const response = await axios.get('http://localhost:8000/molecular-models/admin/all', {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
