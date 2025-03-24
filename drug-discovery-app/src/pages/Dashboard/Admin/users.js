@@ -41,7 +41,7 @@ const UsersPage = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/users', {
+      const response = await axios.get('https://drug-discovery-bn.onrender.com/users', {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -96,7 +96,7 @@ const UsersPage = () => {
   const handleViewUser = async (userId) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8000/users/${userId}`, {
+      const response = await axios.get(`https://drug-discovery-bn.onrender.com/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -127,7 +127,7 @@ const UsersPage = () => {
   const handleDeleteUser = async (userId) => {
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:8000/users/${userId}`, {
+      await axios.delete(`https://drug-discovery-bn.onrender.com/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -161,7 +161,7 @@ const UsersPage = () => {
         role: values.role
       };
       
-      const response = await axios.post('http://localhost:8000/users/create', userData, {
+      const response = await axios.post('https://drug-discovery-bn.onrender.com/users/create', userData, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
           'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ const UsersPage = () => {
         role: values.role
       };
       
-      await axios.put(`http://localhost:8000/users/${currentUser.id}`, userData, {
+      await axios.put(`https://drug-discovery-bn.onrender.com/users/${currentUser.id}`, userData, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
           'Content-Type': 'application/json',

@@ -28,7 +28,7 @@ const SignupPage = () => {
     setLoading(true);
     
     try {
-      await axios.post('http://localhost:8000/users', {
+      await axios.post('https://drug-discovery-bn.onrender.com/users/create', {
         email: values.email,
         password: values.password,
         fullName: values.fullName,

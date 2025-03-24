@@ -1,7 +1,8 @@
 .sidebar {
-    background-color: #ffffff;
+  background-image: url('/path/to/your-image.jpg');
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
     min-height: 100vh;
+    height: auto;
     position: fixed;
     left: 0;
     position: fixed;
