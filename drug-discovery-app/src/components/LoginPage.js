@@ -19,7 +19,7 @@ const LoginPage = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post('hhttps://drug-discovery-bn.onrender.com/auth/login', {
+      const response = await axios.post('https://drug-discovery-bn.onrender.com/auth/login', {
         email: values.email,
         password: values.password
       });
