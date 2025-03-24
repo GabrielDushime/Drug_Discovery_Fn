@@ -53,16 +53,16 @@ const VisualizationPage = () => {
     FAILED: 'FAILED'
   };
 
-  // Element colors for visualization
+ 
   const elementColors = {
-    H: 0xFFFFFF,  // White
-    C: 0x808080,  // Gray
-    N: 0x0000FF,  // Blue
-    O: 0xFF0000,  // Red
-    P: 0xFFA500,  // Orange
-    S: 0xFFFF00,  // Yellow
-    CL: 0x00FF00, // Green
-    default: 0xAAAAAA // Default gray
+    H: 0xFFFFFF,  
+    C: 0x808080,  
+    N: 0x0000FF, 
+    O: 0xFF0000,  
+    P: 0xFFA500,  
+    S: 0xFFFF00,  
+    CL: 0x00FF00, 
+    default: 0xAAAAAA 
   };
 
   useEffect(() => {
@@ -226,19 +226,19 @@ const VisualizationPage = () => {
     
     cleanupScene();
 
-    // Scene setup
+    
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf0f0f0);
     sceneRef.current = scene;
 
-    // Camera setup
+    
     const width = containerRef.current.clientWidth;
     const height = containerRef.current.clientHeight;
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     camera.position.z = 50;
     cameraRef.current = camera;
 
-    // Renderer setup
+  
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -246,13 +246,13 @@ const VisualizationPage = () => {
     containerRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // Controls
+   
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
     controlsRef.current = controls;
 
-    // Lighting
+    
     const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
     scene.add(ambientLight);
 
@@ -260,10 +260,10 @@ const VisualizationPage = () => {
     directionalLight.position.set(1, 1, 1);
     scene.add(directionalLight);
 
-    // Create molecule
+    
     createMolecule();
 
-    // Animation loop
+   
     const animate = () => {
       animationFrameRef.current = requestAnimationFrame(animate);
       controls.update();
@@ -296,11 +296,10 @@ const VisualizationPage = () => {
 
     if (!structureData || !structureData.atoms) return;
 
-    // Group to hold all parts of the molecule
     const moleculeGroup = new THREE.Group();
     moleculeGroupRef.current = moleculeGroup;
 
-    // Add atoms
+   
     const atoms = structureData.atoms;
     const atomMeshes = [];
 
@@ -308,23 +307,23 @@ const VisualizationPage = () => {
       let color;
       
       if (colorBy === 'element') {
-        // Color by element type
+        
         const element = atom.element.toUpperCase();
         color = elementColors[element] || elementColors.default;
       } else if (colorBy === 'residue') {
-        // Color by residue (using a hash function for consistent colors)
+       
         const hash = hashCode(atom.residueName);
         color = new THREE.Color(`hsl(${hash % 360}, 70%, 50%)`).getHex();
       } else if (colorBy === 'chain') {
-        // Color by chain
+    
         const hash = hashCode(atom.chainId);
         color = new THREE.Color(`hsl(${hash % 360}, 70%, 50%)`).getHex();
       }
 
-      // Create sphere geometry
+   
       let radius = 0.5;
       if (viewMode === 'spacefill') {
-        // Use van der Waals radii or approximation
+       
         radius = getAtomRadius(atom.element) || 1.0;
       } else if (viewMode === 'ball-and-stick') {
         radius = 0.3;
@@ -339,7 +338,7 @@ const VisualizationPage = () => {
       atomMeshes.push(mesh);
     });
 
-    // Add bonds
+    
     if (showBonds && structureData.bonds) {
       structureData.bonds.forEach(bond => {
         if (bond.atomIndex1 < atoms.length && bond.atomIndex2 < atoms.length) {
@@ -352,13 +351,13 @@ const VisualizationPage = () => {
           const direction = new THREE.Vector3().subVectors(end, start);
           const length = direction.length();
           
-          // Create cylinder for bond
+         
           const bondGeometry = new THREE.CylinderGeometry(0.1, 0.1, length, 8);
           const bondMaterial = new THREE.MeshPhongMaterial({ color: 0x999999 });
           
           const bondMesh = new THREE.Mesh(bondGeometry, bondMaterial);
           
-          // Position and rotate the cylinder
+         
           bondMesh.position.copy(start);
           bondMesh.position.add(direction.multiplyScalar(0.5));
           bondMesh.lookAt(end);
@@ -369,10 +368,10 @@ const VisualizationPage = () => {
       });
     }
 
-    // Add molecule to scene
+   
     sceneRef.current.add(moleculeGroup);
 
-    // Center camera on molecule
+   
     centerCamera();
   };
 
@@ -385,31 +384,31 @@ const VisualizationPage = () => {
 
   const centerCamera = () => {
     if (moleculeGroupRef.current && cameraRef.current) {
-      // Calculate bounding box
+     
       const boundingBox = new THREE.Box3().setFromObject(moleculeGroupRef.current);
       const center = new THREE.Vector3();
       boundingBox.getCenter(center);
       
-      // Center the molecule
+    
       moleculeGroupRef.current.position.sub(center);
       
-      // Position camera to see the whole molecule
+      
       const size = new THREE.Vector3();
       boundingBox.getSize(size);
       const maxDim = Math.max(size.x, size.y, size.z);
       const fov = cameraRef.current.fov * (Math.PI / 180);
       let distance = maxDim / (2 * Math.tan(fov / 2));
       
-      // Add some padding
+      
       distance *= 1.5;
       
-      // Set camera position
+      
       cameraRef.current.position.z = distance;
       cameraRef.current.near = distance / 100;
       cameraRef.current.far = distance * 100;
       cameraRef.current.updateProjectionMatrix();
       
-      // Update controls
+   
       if (controlsRef.current) {
         controlsRef.current.target.set(0, 0, 0);
         controlsRef.current.update();
@@ -418,7 +417,7 @@ const VisualizationPage = () => {
   };
 
   const getAtomRadius = (element) => {
-    // Simplified van der Waals radii in Ångströms
+  
     const radii = {
       'H': 1.2,
       'C': 1.7,

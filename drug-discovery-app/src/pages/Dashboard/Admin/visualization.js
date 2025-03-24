@@ -53,16 +53,16 @@ const VisualizationPage = () => {
     FAILED: 'FAILED'
   };
 
-  // Element colors for visualization
+  
   const elementColors = {
-    H: 0xFFFFFF,  // White
-    C: 0x808080,  // Gray
-    N: 0x0000FF,  // Blue
-    O: 0xFF0000,  // Red
-    P: 0xFFA500,  // Orange
-    S: 0xFFFF00,  // Yellow
-    CL: 0x00FF00, // Green
-    default: 0xAAAAAA // Default gray
+    H: 0xFFFFFF,  
+    C: 0x808080,  
+    N: 0x0000FF,  
+    O: 0xFF0000,  
+    P: 0xFFA500,  
+    S: 0xFFFF00,  
+    CL: 0x00FF00, 
+    default: 0xAAAAAA 
   };
 
   useEffect(() => {
@@ -90,7 +90,7 @@ const VisualizationPage = () => {
   const fetchModelsAndSimulations = async () => {
     try {
      
-      const modelsResponse = await axios.get('http://localhost:8000/molecular-models', {
+      const modelsResponse = await axios.get('http://localhost:8000/molecular-models/admin/all', {
         headers: { Authorization: `Bearer ${getAuthToken()}` },
       });
       setModels(modelsResponse.data);
