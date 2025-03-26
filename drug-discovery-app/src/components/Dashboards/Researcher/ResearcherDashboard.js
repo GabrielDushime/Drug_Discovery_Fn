@@ -15,7 +15,7 @@ import {
 } from '@ant-design/icons';
 import DashboardLayout from './DashboardLayout';
 import styles from '../../../styles/ResearcherDashboard.module.css';
-import axios from 'axios';
+import axiosInstance from '../../../lib/axiosInstance';
 import {
   PieChart, Pie, 
   LineChart, Line,
@@ -26,7 +26,6 @@ import {
 
 const { Title, Paragraph, Text } = Typography;
 
-// Prevent static generation issues
 export const getServerSideProps = async () => {
   return { props: {} };
 };
@@ -42,11 +41,11 @@ const ResearcherDashboardPage = () => {
     completedSimulations: 0,
     successRate: 0
   });
-  const [recentModels, setRecentModels] = useState([]);
+ 
   const [recentSimulations, setRecentSimulations] = useState([]);
   const [simulationsByStatus, setSimulationsByStatus] = useState([]);
   const [simulationTrends, setSimulationTrends] = useState([]);
-  const [modelUsage, setModelUsage] = useState([]);
+
   const [windowWidth, setWindowWidth] = useState(isBrowser ? window.innerWidth : 1200);
 
   useEffect(() => {
@@ -74,7 +73,7 @@ const ResearcherDashboardPage = () => {
     }
   }, [isBrowser]);
 
-  // Define getStatusColor here since it's used by processChartData
+  
   const getStatusColor = (status) => {
     switch (status) {
       case 'pending':
@@ -123,19 +122,7 @@ const ResearcherDashboardPage = () => {
       modelUsageMap[modelId]++;
     });
     
-    const modelUsageData = [];
-    for (const modelId in modelUsageMap) {
-      const model = models.find(m => m.id === modelId);
-      modelUsageData.push({
-        name: model ? model.name : 'Unknown Model',
-        simulations: modelUsageMap[modelId]
-      });
-    }
     
-    modelUsageData.sort((a, b) => b.simulations - a.simulations);
-    setModelUsage(modelUsageData.slice(0, 5));
-    
-    // Simulation trends chart data
     if (simulations.length > 0) {
       const monthlyData = {};
       simulations.forEach(sim => {
@@ -228,10 +215,7 @@ const ResearcherDashboardPage = () => {
             successRate
           });
           
-          const sortedModels = [...models].sort((a, b) => 
-            new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
-          ).slice(0, 5);
-          setRecentModels(sortedModels);
+        
           
           const sortedSimulations = [...simulations].sort((a, b) => 
             new Date(b.startedAt || b.createdAt || 0) - new Date(a.startedAt || a.createdAt || 0)

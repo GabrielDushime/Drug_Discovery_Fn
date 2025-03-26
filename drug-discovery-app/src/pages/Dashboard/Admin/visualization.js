@@ -10,8 +10,9 @@ import {
 import DashboardLayout from '../../../components/Dashboards/Admin/DashboardLayout';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import axios from 'axios';
+import axiosInstance from '../../../lib/axiosInstance';
 import styles from '../../../styles/Visualization.module.css';
+
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
@@ -90,13 +91,13 @@ const VisualizationPage = () => {
   const fetchModelsAndSimulations = async () => {
     try {
      
-      const modelsResponse = await axios.get('http://localhost:8000/molecular-models/admin/all', {
+      const modelsResponse = await axiosInstance.get('/molecular-models/admin/all', {
         headers: { Authorization: `Bearer ${getAuthToken()}` },
       });
       setModels(modelsResponse.data);
 
      
-      const simulationsResponse = await axios.get('http://localhost:8000/simulations', {
+      const simulationsResponse = await axiosInstance.get('/simulations', {
         headers: { Authorization: `Bearer ${getAuthToken()}` },
       });
       
@@ -144,7 +145,7 @@ const VisualizationPage = () => {
   const fetchModelData = async (modelId) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:8000/visualization/model/${modelId}`, {
+      const response = await axiosInstance.get(`/visualization/model/${modelId}`, {
         headers: { Authorization: `Bearer ${getAuthToken()}` },
       });
       setVisualizationData(response.data);
@@ -161,7 +162,7 @@ const VisualizationPage = () => {
   const fetchTrajectoryData = async (simulationId) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:8000/visualization/trajectory/${simulationId}`, {
+      const response = await axiosInstance.get(`/visualization/trajectory/${simulationId}`, {
         headers: { Authorization: `Bearer ${getAuthToken()}` },
       });
       setVisualizationData(response.data);

@@ -9,13 +9,11 @@ import {
   CloseCircleOutlined,
   WarningOutlined,
   LoadingOutlined,
-  TeamOutlined,
   RiseOutlined,
   FallOutlined
 } from '@ant-design/icons';
 import DashboardLayout from '../../../components/Dashboards/Admin/DashboardLayout';
 import styles from '../../../styles/Dashboard.module.css';
-import axios from 'axios';
 import {
    PieChart, Pie, 
    LineChart, Line,
@@ -24,7 +22,12 @@ import {
    Tooltip, Legend 
   } from 'recharts';
 
+  import axiosInstance from '../../../lib/axiosInstance';
+
 const { Title, Paragraph, Text } = Typography;
+
+
+
 
 const DashboardPage = () => {
   const [userName, setUserName] = useState('');
@@ -39,9 +42,7 @@ const DashboardPage = () => {
   const [recentUsers, setRecentUsers] = useState([]);
   const [recentSimulations, setRecentSimulations] = useState([]);
   const [simulationsByStatus, setSimulationsByStatus] = useState([]);
-  const [simulationsByType, setSimulationsByType] = useState([]);
   const [simulationTrends, setSimulationTrends] = useState([]);
-  const [modelUsage, setModelUsage] = useState([]);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   useEffect(() => {
@@ -89,32 +90,6 @@ const DashboardPage = () => {
     }));
     setSimulationsByStatus(statusData);
     
- 
-    const typeCounts = {};
-    simulations.forEach(sim => {
-      const type = sim.type || 'Unknown';
-      typeCounts[type] = (typeCounts[type] || 0) + 1;
-    });
-    
-    const typeData = Object.keys(typeCounts).map(type => ({
-      name: type,
-      count: typeCounts[type]
-    }));
-    setSimulationsByType(typeData);
-    
-   
-    const modelUsageData = models.slice(0, 5).map(model => {
-      const simulationsUsingModel = simulations.filter(sim => 
-        sim.modelId === model.id
-      ).length;
-      
-      return {
-        name: model.name,
-        simulations: simulationsUsingModel
-      };
-    }).sort((a, b) => b.simulations - a.simulations);
-    
-    setModelUsage(modelUsageData);
     
    
     const mockMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
@@ -132,19 +107,19 @@ const DashboardPage = () => {
       setLoading(true);
       setError(null);
       try {
-        const usersResponse = await axios.get('http://localhost:8000/users', {
+        const usersResponse = await axiosInstance.get('/users', {
           headers: {
             Authorization: `Bearer ${getAuthToken()}`,
           },
         });
         
-        const modelsResponse = await axios.get('http://localhost:8000/molecular-models/admin/all', {
+        const modelsResponse = await axiosInstance.get('/molecular-models/admin/all', {
           headers: {
             Authorization: `Bearer ${getAuthToken()}`,
           },
         });
         
-        const simulationsResponse = await axios.get('http://localhost:8000/simulations', {
+        const simulationsResponse =  await axiosInstance.get('/simulations', {
           headers: {
             Authorization: `Bearer ${getAuthToken()}`,
           },
@@ -209,20 +184,7 @@ const DashboardPage = () => {
       { name: 'failed', value: 2, fill: '#f5222d' }
     ]);
     
-    setSimulationsByType([
-      { name: 'Molecular Dynamics', count: 28 },
-      { name: 'Quantum Chemistry', count: 15 },
-      { name: 'Protein Folding', count: 8 },
-      { name: 'Ligand Docking', count: 5 }
-    ]);
-    
-    setModelUsage([
-      { name: 'Protein Model A', simulations: 12 },
-      { name: 'Water Cluster', simulations: 10 },
-      { name: 'DNA Fragment', simulations: 8 },
-      { name: 'Enzyme Complex', simulations: 7 },
-      { name: 'Lipid Membrane', simulations: 5 }
-    ]);
+   
     
     setSimulationTrends([
       { name: 'Jan', completed: 8, failed: 2 },

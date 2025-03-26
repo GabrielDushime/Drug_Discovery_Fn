@@ -3,7 +3,7 @@ import { Table, Card, Input, Button, Space, Tag, Typography, Modal, Form, Select
 import { SearchOutlined, UserAddOutlined, ReloadOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import DashboardLayout from '../../../components/Dashboards/Admin/DashboardLayout';
 import styles from '../../../styles/UsersPage.module.css';
-import axios from 'axios';
+import axiosInstance from '../../../lib/axiosInstance';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -41,7 +41,7 @@ const UsersPage = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('https://drug-discovery-bn.onrender.com/users', {
+      const response = await axiosInstance.get('/users', {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -96,7 +96,7 @@ const UsersPage = () => {
   const handleViewUser = async (userId) => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://drug-discovery-bn.onrender.com/users/${userId}`, {
+      const response = await axiosInstance.get(`/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -127,7 +127,7 @@ const UsersPage = () => {
   const handleDeleteUser = async (userId) => {
     try {
       setLoading(true);
-      await axios.delete(`https://drug-discovery-bn.onrender.com/users/${userId}`, {
+      await axiosInstance.delete(`/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -161,7 +161,7 @@ const UsersPage = () => {
         role: values.role
       };
       
-      const response = await axios.post('https://drug-discovery-bn.onrender.com/users/create', userData, {
+      const response = await axiosInstance.post('/users/create', userData, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
           'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ const UsersPage = () => {
         role: values.role
       };
       
-      await axios.put(`https://drug-discovery-bn.onrender.com/users/${currentUser.id}`, userData, {
+      await axiosInstance.put(`users/${currentUser.id}`, userData, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
           'Content-Type': 'application/json',

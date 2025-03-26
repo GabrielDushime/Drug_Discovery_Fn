@@ -8,8 +8,9 @@ import {
   FilePdfOutlined, FileExcelOutlined, DownloadOutlined
 } from '@ant-design/icons';
 import DashboardLayout from '../../../components/Dashboards/Admin/DashboardLayout';
-import axios from 'axios';
+import axiosInstance from '../../../lib/axiosInstance';
 import styles from '../../../styles/Data-Export.module.css';
+import axios from 'axios';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -50,7 +51,7 @@ const DataExportPage = () => {
   const fetchSimulations = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/simulations', {
+      const response = await axiosInstance.get('/simulations', {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
