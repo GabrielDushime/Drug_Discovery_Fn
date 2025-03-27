@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import axiosInstance from '../lib/axiosInstance';
+import axios from 'axios';
 import styles from '../styles/Auth.module.css';
 import Footer from '../components/Footer';
 import HeaderComponent from '../components/Header';
@@ -20,7 +20,7 @@ const LoginPage = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post('/auth/login', {
+      const response = await axios.post('https://drug-discovery-bn.onrender.com/auth/login', {
         email: values.email,
         password: values.password
       });
