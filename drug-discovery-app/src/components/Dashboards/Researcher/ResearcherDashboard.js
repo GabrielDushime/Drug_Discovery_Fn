@@ -77,11 +77,11 @@ const ResearcherDashboardPage = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'pending':
-        return '#faad14'; 
+        return ' #AED6F1'; 
       case 'processing':
         return '#1890ff'; 
       case 'completed':
-        return '#52c41a'; 
+        return '#1A5276'; 
       case 'failed':
         return '#f5222d'; 
       default:
@@ -89,9 +89,9 @@ const ResearcherDashboardPage = () => {
     }
   };
 
-  // Move processChartData before the useEffect that depends on it and wrap it in useCallback
+ 
   const processChartData = useCallback((simulations, models) => {
-    // Status chart data
+
     const statusCounts = {
       pending: 0,
       processing: 0,
@@ -112,7 +112,7 @@ const ResearcherDashboardPage = () => {
     }));
     setSimulationsByStatus(statusData);
     
-    // Model usage chart data
+    
     const modelUsageMap = {};
     simulations.forEach(sim => {
       const modelId = sim.modelId || 'unknown';
@@ -175,7 +175,7 @@ const ResearcherDashboardPage = () => {
           let simulations = [];
           
           try {
-            const modelsResponse = await axios.get(`http://localhost:8000/molecular-models`, {
+            const modelsResponse = await axiosInstance.get(`/molecular-models`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -188,7 +188,7 @@ const ResearcherDashboardPage = () => {
           }
           
           try {
-            const simulationsResponse = await axios.get(`http://localhost:8000/simulations/my-simulations`, {
+            const simulationsResponse = await axiosInstance.get(`/simulations/my-simulations`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -260,7 +260,7 @@ const ResearcherDashboardPage = () => {
     };
 
     fetchDashboardData();
-  }, []); // Remove processChartData from the dependency array since it's now wrapped in useCallback
+  }, []); 
 
   const getStatusTag = (status) => {
     switch (status) {
@@ -394,7 +394,7 @@ const ResearcherDashboardPage = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="completed" stroke="#52c41a" strokeWidth={2} activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="completed" stroke="#1A5276" strokeWidth={2} activeDot={{ r: 8 }} />
           <Line type="monotone" dataKey="failed" stroke="#f5222d" strokeWidth={2} />
         </LineChart>
       </div>

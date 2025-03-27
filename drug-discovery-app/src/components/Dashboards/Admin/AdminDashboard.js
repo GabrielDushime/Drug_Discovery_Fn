@@ -199,11 +199,11 @@ const DashboardPage = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'pending':
-        return '#faad14'; 
+        return ' #AED6F1'; 
       case 'processing':
         return '#1890ff'; 
       case 'completed':
-        return '#52c41a'; 
+        return '#1A5276'; 
       case 'failed':
         return '#f5222d'; 
       default:
@@ -299,7 +299,7 @@ const DashboardPage = () => {
             cx="50%"
             cy="40%"
             labelLine={true}
-            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+            label={({ name, percent }) => `${name}`}
             outerRadius={60}
             fill="#8884d8"
             dataKey="value"
@@ -329,7 +329,7 @@ const DashboardPage = () => {
           <YAxis />
           <Tooltip />
           <Legend wrapperStyle={{ paddingTop: 10 }} />
-          <Line type="monotone" dataKey="completed" stroke="#52c41a" strokeWidth={2} activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="completed" stroke="#1A5276" strokeWidth={2} activeDot={{ r: 8 }} />
           <Line type="monotone" dataKey="failed" stroke="#f5222d" strokeWidth={2} />
         </LineChart>
       </div>

@@ -3,7 +3,8 @@ import { Form, Input, Button, Checkbox, Typography, message, Card, Divider, Layo
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import axios from 'axios';
+
+import axiosInstance from '../lib/axiosInstance';
 import styles from '../styles/Auth.module.css';
 import Footer from '../components/Footer';
 import HeaderComponent from '../components/Header';
@@ -19,7 +20,7 @@ const LoginPage = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post('https://drug-discovery-bn.onrender.com/auth/login', {
+      const response = await axiosInstance.post('/auth/login', {
         email: values.email,
         password: values.password
       });
@@ -33,7 +34,7 @@ const LoginPage = () => {
       localStorage.setItem('userId', user.id);
       
       
-      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
       
       
       

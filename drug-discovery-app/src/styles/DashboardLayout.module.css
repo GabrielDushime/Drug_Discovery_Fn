@@ -114,7 +114,7 @@
   /* Responsive styles */
   @media (max-width: 768px) {
     .bodyContent {
-      min-height: calc(100vh - 140px); /* Adjust for smaller header/footer on mobile */
+      min-height: calc(100vh - 140px); 
     }
   
     .welcomeTitle {

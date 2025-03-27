@@ -9,7 +9,7 @@ import {
   CloseCircleOutlined 
 } from '@ant-design/icons';
 import DashboardLayout from '../../../components/Dashboards/Researcher/DashboardLayout';
-import axios from 'axios';
+import axiosInstance from '../../../lib/axiosInstance';
 import styles from '../../../styles/Molecular-Model.module.css';
 
 const { Title, Text } = Typography;
@@ -49,7 +49,7 @@ const MolecularModelsPage = () => {
   const fetchModels = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/molecular-models', {
+      const response = await axiosInstance.get('/molecular-models', {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -95,7 +95,7 @@ const MolecularModelsPage = () => {
   const handleViewModel = async (modelId) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8000/molecular-models/${modelId}`, {
+      const response = await axiosInstance.get(`/molecular-models/${modelId}`, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -113,7 +113,7 @@ const MolecularModelsPage = () => {
   const handleDeleteModel = async (modelId) => {
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:8000/molecular-models/${modelId}`, {
+      await axiosInstance.delete(`/molecular-models/${modelId}`, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -129,7 +129,7 @@ const MolecularModelsPage = () => {
 
   const handleDownloadModel = async (modelId, modelName) => {
     try {
-      const response = await axios.get(`http://localhost:8000/molecular-models/${modelId}/file`, {
+      const response = await axiosInstance.get(`/molecular-models/${modelId}/file`, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -190,7 +190,7 @@ const MolecularModelsPage = () => {
         formData.append('format', values.format);
       }
       
-      const response = await axios.post('http://localhost:8000/molecular-models', formData, {
+      const response = await axiosInstance.post('/molecular-models', formData, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
           'Content-Type': 'multipart/form-data',

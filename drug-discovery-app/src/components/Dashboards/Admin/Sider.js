@@ -123,7 +123,7 @@ const Sidebar = ({ collapsed, toggleCollapsed, className }) => {
             size={collapsed ? 36 : 50} 
             icon={<UserOutlined />} 
             className={styles.avatar}
-            style={{ backgroundColor: '#ff7700' }}
+            style={{ backgroundColor: '#2980B9' }}
           />
           {!collapsed && (
             <Dropdown overlay={userMenu} trigger={['click']} placement="bottomRight">

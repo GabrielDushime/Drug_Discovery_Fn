@@ -10,7 +10,7 @@ import {
   CloseCircleOutlined, WarningOutlined, LoadingOutlined
 } from '@ant-design/icons';
 import DashboardLayout from '../../../components/Dashboards/Researcher/DashboardLayout';
-import axios from 'axios';
+import axiosInstance from '../../../lib/axiosInstance';
 import styles from '../../../styles/Simulation.module.css';
 
 const { Title, Text, Paragraph } = Typography;
@@ -62,7 +62,7 @@ const SimulationsPage = () => {
   const fetchSimulations = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/simulations/my-simulations', {
+      const response =  await axiosInstance.get('/simulations/my-simulations', {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -80,7 +80,7 @@ const SimulationsPage = () => {
 
   const fetchMolecularModels = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/molecular-models', {
+      const response =  await axiosInstance.get('/molecular-models', {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -122,7 +122,7 @@ const SimulationsPage = () => {
   const handleViewSimulation = async (simulationId) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8000/simulations/${simulationId}`, {
+      const response =  await axiosInstance.get(`/simulations/${simulationId}`, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -140,7 +140,7 @@ const SimulationsPage = () => {
   const handleDeleteSimulation = async (simulationId) => {
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:8000/simulations/${simulationId}`, {
+       await axiosInstance.delete(`/simulations/${simulationId}`, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -160,7 +160,7 @@ const SimulationsPage = () => {
       setRunningSimulationId(simulationId);
       
       
-      const response = await axios.post(`http://localhost:8000/simulations/run-dask/${simulationId}`, {}, {
+      const response =  await axiosInstance.post(`/simulations/run-dask/${simulationId}`, {}, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -191,7 +191,7 @@ const SimulationsPage = () => {
       
       const pollInterval = setInterval(async () => {
         try {
-          const simResponse = await axios.get(`http://localhost:8000/simulations/${simulationId}`, {
+          const simResponse =  await axiosInstance.get(`/simulations/${simulationId}`, {
             headers: {
               Authorization: `Bearer ${getAuthToken()}`,
             },
@@ -248,7 +248,7 @@ const SimulationsPage = () => {
       setAnalyticsLoading(true);
       
     
-      const response = await axios.get(`http://localhost:8000/simulations/analytics/${simulationId}`, {
+      const response =  await axiosInstance.get(`/simulations/analytics/${simulationId}`, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
         },
@@ -279,7 +279,7 @@ const SimulationsPage = () => {
       const values = await createForm.validateFields();
       setLoading(true);
       
-      // Handle parameters parsing
+      
       let parsedParameters = {};
       if (values.parameters) {
         try {
@@ -306,7 +306,7 @@ const SimulationsPage = () => {
       
       console.log("Sending payload:", JSON.stringify(payload, null, 2));
       
-      const response = await axios.post('http://localhost:8000/simulations', payload, {
+      const response =  await axiosInstance.post('/simulations', payload, {
         headers: {
           Authorization: `Bearer ${getAuthToken()}`,
           'Content-Type': 'application/json',
@@ -322,8 +322,7 @@ const SimulationsPage = () => {
       if (error.response) {
         console.error('Response status:', error.response.status);
         console.error('Response data:', JSON.stringify(error.response.data, null, 2));
-        
-        // Display a more informative error message
+       
         let errorMessage = 'Failed to create simulation';
         if (typeof error.response.data === 'string') {
           errorMessage = error.response.data;

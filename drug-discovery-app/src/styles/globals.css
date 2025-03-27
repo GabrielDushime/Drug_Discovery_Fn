@@ -21,15 +21,15 @@ a {
 
 /* Ant Design overrides */
 .ant-btn-primary {
-  background-color: #FF7F00 ;
+  background-color: #2980B9; 
 }
 
 .ant-btn-primary:hover,
 .ant-btn-primary:focus {
   transform: translateY(-2px);
-  background: #FF4500 !important;
-  border-color: #FF4500 !important;
-  box-shadow: 0 6px 16px rgba(255, 69, 0, 0.5);
+  background: #2980B9 !important;
+  border-color: #2980B9 !important;
+  box-shadow: 0 6px 16px rgba(3, 84, 106, 0.5);
 }
 
 .ant-carousel .slick-dots li button {

@@ -2,23 +2,28 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background-color: #EBF5FB;
+  padding: 20px;
 }
 
 .welcomeCard {
-  background: linear-gradient(135deg, #fff8f0 0%, #fff 100%);
-  border-left: 4px solid #ff7700;
+  background: linear-gradient(135deg, #F4F6F7 0%, #FFFFFF 100%);
+  border-left: 4px solid #2980B9;
   margin-bottom: 1rem;
   border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(41, 128, 185, 0.1);
+
 }
 
 .welcomeTitle {
-  color: #333;
+  color: #1A5276;
   margin-bottom: 0.5rem !important;
+  font-weight: 600;
 }
 
 .welcomeText {
   font-size: 16px;
-  color: #666;
+  color: #2980B9;
   margin-bottom: 0 !important;
   max-width: 800px;
 }
@@ -35,33 +40,40 @@
   height: 100%;
   transition: all 0.3s ease;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  box-shadow: 0 2px 8px rgba(26, 82, 118, 0.1);
+  background-color: white;
+  border: 1px solid #AED6F1;
 }
 
 .statCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(26, 82, 118, 0.2);
+  border-color: #2980B9;
 }
 
 .statIcon {
-  color: #ff7700;
+  color: #2980B9;
   font-size: 1.25rem;
   margin-right: 8px;
 }
 
 .activityCard {
   border-radius: 8px;
+  background-color: white;
 }
 
 .activityCard :global(.ant-card-head) {
-  background-color: #fff8f0;
-  border-bottom: 1px solid #ffebcc;
+  background-color: #F4F6F7;
+  border-bottom: 1px solid #AED6F1;
 }
+
 
 .tableCard {
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  box-shadow: 0 2px 8px rgba(26, 82, 118, 0.1);
   height: 100%;
+  background-color: white;
+  border: 1px solid #AED6F1;
 }
 
 .loadingContainer {
@@ -70,6 +82,7 @@
   align-items: center;
   height: 80vh;
   flex-direction: column;
+  background-color: #EBF5FB;
 }
 
 .legendContainer {
@@ -77,21 +90,23 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 1rem;
+  gap: 10px;
 }
+
 
 .chartTitle {
   margin-bottom: 1rem;
-  color: #333;
+  color: #1A5276;
+  font-weight: 600;
 }
 
-/* Tooltip Styles */
 .tooltipContainer {
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(26, 82, 118, 0.9);
   padding: 10px;
   border-radius: 4px;
   color: white;
+  border: 1px solid #2980B9;
 }
-
 /* Chart responsiveness */
 .recharts-responsive-container {
   width: 100% !important;

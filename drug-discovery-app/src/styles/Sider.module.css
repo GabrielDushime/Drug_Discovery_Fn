@@ -1,7 +1,7 @@
 .sidebar {
-  background-image: url('/path/to/your-image.jpg');
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-    min-height: 100vh;
+  background-color: #EBF5FB;
+  box-shadow: 2px 0 8px rgba(41, 128, 185, 0.1);
+  min-height:auto;
     height: auto;
     position: fixed;
     left: 0;
@@ -14,14 +14,16 @@
   
   .sidebar.collapsed {
     overflow: visible;
+    width: 80px;
   }
   
   /* User Profile Section */
   .userSection {
     padding: 1.5rem 1rem;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #AED6F1;
     margin-bottom: 0.5rem;
     position: relative;
+    background-color: #F4F6F7;
   }
   
   .userInfo {
@@ -32,6 +34,9 @@
   
   .avatar {
     flex-shrink: 0;
+    border: 2px solid white;
+    border-radius: 50%;
+   
   }
   
   .userDetails {
@@ -47,7 +52,7 @@
   .userName {
     font-weight: 600;
     font-size: 0.7rem;
-    color: #333;
+    color: #1A5276;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -55,20 +60,20 @@
   
   .userRole {
     font-size: 0.75rem;
-    color: #666;
+    color: #2980B9;
   }
   
   .settingsIcon {
     position: absolute;
-    right:0;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
-    color: #ff7700;
+    color: #2980B9;
     font-size: 1rem;
   }
   
   .collapsedMenuButton {
-    color: #ff7700 !important;
+    color: #2980B9 !important;
     font-size: 1.25rem;
     position: absolute;
     top: 70px;
@@ -83,11 +88,12 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-bottom: 60px; /* Space for footer */
+    padding-bottom: 60px; 
   }
   
   .navMenu {
     border-right: none !important;
+    background-color: transparent;
   }
   
   .navMenu :global(.ant-menu-item) {
@@ -97,10 +103,11 @@
     margin: 4px 0;
     border-radius: 0 20px 20px 0;
     margin-right: 16px;
+    transition: all 0.3s ease;
   }
   
   .navMenu :global(.ant-menu-item-selected) {
-    background-color: #ff7700 !important;
+    background-color: #2980B9 !important;
     color: white !important;
   }
   
@@ -110,28 +117,23 @@
   }
   
   .navMenu :global(.ant-menu-item:hover) {
-    background-color: rgba(255, 119, 0, 0.1);
-    color: #ff7700;
+    background-color: rgba(41, 128, 185, 0.1);
+    color: #2980B9;
   }
   
   .navMenu :global(.ant-menu-item a) {
-    color: #333;
+    color: #1A5276;
   }
   
   .navMenu :global(.ant-menu-item:hover a), 
   .navMenu :global(.ant-menu-item:hover .anticon) {
-    color: #ff7700 !important;
-  }
-  
-  .navMenu :global(.ant-menu-item-selected:hover a), 
-  .navMenu :global(.ant-menu-item-selected:hover .anticon) {
-    color: white !important;
+    color: #2980B9 !important;
   }
   
   .navMenu :global(.anticon) {
     font-size: 1.25rem;
     margin-right: 10px;
-    color: #666;
+    color: #2980B9;
   }
   
   /* Collapsed menu styles */
@@ -148,27 +150,29 @@
     font-size: 1.5rem;
   }
   
-  /* Sidebar Footer */
-  .sidebarFooter {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem;
-    border-top: 1px solid #f0f0f0;
-    background-color: white;
-  }
+ /* Sidebar Footer */
+ .sidebarFooter {
+  position: absolute;
+  bottom:100;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  border-top: 1px solid #AED6F1;
+  background-color: #F4F6F7;
+} 
   
-  .logoutButton {
-    width: 100%;
-    background-color: #ff7700 !important;
-    border-color: #ff7700 !important;
-  }
-  
-  .logoutButton:hover {
-    background-color: #ff8c1a !important;
-    border-color: #ff8c1a !important;
-  }
+.logoutButton {
+  width: 100%;
+  background-color: #2980B9 !important;
+  border-color: #2980B9 !important;
+  color: white;
+}
+
+.logoutButton:hover {
+  background-color: #1A5276 !important;
+  border-color: #1A5276 !important;
+}
+
   
   /* Mobile Toggle Button */
   .mobileToggle {
@@ -176,7 +180,7 @@
     top: 70px;
     left: 10px;
     z-index: 1000;
-    background-color: #ff7700 !important;
+    background-color: #1A5276!important;
     color: white !important;
     border: none !important;
     border-radius: 50%;
@@ -198,10 +202,10 @@
   }
   
   .userDropdownMenu :global(.ant-dropdown-menu-item .anticon) {
-    color: #ff7700;
+    color: #1A5276;
     margin-right: 8px;
   }
-  
+ 
   /* Media Queries for Responsive Design */
   @media (max-width: 768px) {
     .sidebar {
@@ -246,22 +250,22 @@
       font-size: 1rem;
     }
   }
-  /* Add these styles to your Sider.module.css file */
+  
 
 .sidebar {
-    /* Make sure sidebar starts right after header */
+    
     margin-top: 0;
-    /* Make sure sidebar has proper height */
-    min-height: calc(100vh - 160px); /* Adjust based on your header and footer heights */
+    
+    min-height: calc(100vh - 160px); 
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
     background: #fff;
   }
   
-  /* Adjust sidebar height for mobile */
+ 
   @media (max-width: 768px) {
     .sidebar {
-      min-height: calc(100vh - 140px); /* Adjust for smaller header/footer on mobile */
+      min-height: calc(100vh - 140px); 
     }
     
     .collapsed {
@@ -270,7 +274,7 @@
     }
   }
   
-  /* Additional important fix for footer */
+ 
   .sidebarFooter {
     position: absolute;
     bottom: 16px;
@@ -279,15 +283,4 @@
     text-align: center;
   }
   
-  .logoutButton {
-    width: 100%;
-    background-color: #ff7700;
-    border-color: #ff7700;
-  }
-  
-  .logoutButton:hover,
-  .logoutButton:active,
-  .logoutButton:focus {
-    background-color: #e66a00;
-    border-color: #e66a00;
-  }
+ 

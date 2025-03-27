@@ -1,153 +1,175 @@
 .authContainer {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 24px;
-  }
-  
-  .authWrapper {
-    width: 100%;
-    max-width: 480px;
-  }
-  
-  .authCard {
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    padding: 24px;
-  }
-  
-  .logoContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 24px;
-  }
-  
-  .circleLogo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: #f0f2f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #FFCC99;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    margin-right: 20px;
-  }
-  
-  .authTitle {
-    text-align: center;
-    margin-bottom: 8px !important;
-  }
-  
-  .authSubtitle {
-    display: block;
-    text-align: center;
-    color: rgba(0, 0, 0, 0.45);
-    margin-bottom: 24px;
-  }
-  
-  .authForm {
-    margin-top: 24px;
-  }
-  
+  min-height: 100vh;
+  background: linear-gradient(135deg, #EBF5FB 0%, #AED6F1 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.authWrapper {
+  width: 100%;
+  max-width: 480px;
+}
+
+.authCard {
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(26, 82, 118, 0.1);
+  padding: 24px;
+  background-color: white;
+  border: 1px solid #AED6F1;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.circleLogo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #EBF5FB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(26, 82, 118, 0.1);
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #2980B9;
+  box-shadow: 0 0 10px rgba(41, 128, 185, 0.2);
+}
+
+.authTitle {
+  text-align: center;
+  margin-bottom: 8px !important;
+  color: #1A5276;
+}
+
+.authSubtitle {
+  display: block;
+  text-align: center;
+  color: #2980B9;
+  margin-bottom: 24px;
+}
+
+.authForm {
+  margin-top: 24px;
+}
+
+.formRow {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 0;
+}
+
+.halfWidthItem {
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.siteFormItemIcon {
+  color: #2980B9;
+}
+
+.rememberForgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.forgotLink {
+  color: #2980B9;
+  transition: all 0.3s;
+}
+
+.forgotLink:hover {
+  color: #1A5276;
+  text-decoration: underline;
+}
+
+.authButton {
+  height: 48px;
+  font-size: 16px;
+  border-radius: 4px;
+  background-color: #2980B9;
+  border-color: #2980B9;
+  color: white;
+}
+
+.authButton:hover {
+  background-color: #1A5276;
+  border-color: #1A5276;
+}
+
+.authRedirect {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.redirectLink {
+  color: #2980B9;
+  margin-left: 8px;
+  transition: all 0.3s;
+}
+
+.redirectLink:hover {
+  color: #1A5276;
+  text-decoration: underline;
+}
+
+.returnHome {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.returnHome button {
+  color: #2980B9 !important;
+}
+
+.returnHome button:hover {
+  color: #1A5276 !important;
+}
+
+.customCheckbox :global(.ant-checkbox-checked .ant-checkbox-inner) {
+  background-color: #2980B9;
+  border-color: #2980B9;
+}
+
+.customCheckbox :global(.ant-checkbox-checked::after) {
+  border-color: #1A5276;
+}
+
+.customCheckbox :global(.ant-checkbox-inner) {
+  border-color: #2980B9;
+}
+
+@media (max-width: 576px) {
   .formRow {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 0;
+    flex-direction: column;
+    gap: 0;
   }
   
   .halfWidthItem {
-    flex: 1;
     margin-bottom: 24px;
   }
   
-  .siteFormItemIcon {
-    color: rgba(0, 0, 0, 0.25);
-  }
- 
-  .rememberForgot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-  }
-
-  
-  .forgotLink {
-    color: #FFAC42;
-    transition: all 0.3s;
+  .authCard {
+    padding: 16px;
   }
   
-  .forgotLink:hover {
-    color: #FF4500;
+  .authTitle {
+    font-size: 1.5rem;
   }
   
-  .authButton {
-    height: 48px;
-    font-size: 16px;
-    border-radius: 4px;
+  .authSubtitle {
+    font-size: 0.9rem;
   }
-  
-  .authRedirect {
-    text-align: center;
-    margin-top: 16px;
-    
-  }
-  
-  .redirectLink {
-    color: #FFAC42;
-    margin-left: 8px;
-    transition: all 0.3s;
-  }
-  
-  .redirectLink:hover {
-    color: #FF4500;
-  }
-  
-  .returnHome {
-    text-align: center;
-    margin-top: 16px;
-    
-  }
-  .returnHome button {
-    color: #FFAC42!important;
-    
-  }
-
-  .returnHome button:hover {
-    color: #FF4500!important;
-    
-  }
-
-  .customCheckbox :global(.ant-checkbox-checked .ant-checkbox-inner) {
-    background-color: #FFAC42;
-    border-color: #FFAC42;
-  }
-
-  
-  .customCheckbox :global(.ant-checkbox-checked::after) {
-    border-color: #FFCC00;
-  }
-  
-  @media (max-width: 576px) {
-    .formRow {
-      flex-direction: column;
-      gap: 0;
-    }
-    
-    .halfWidthItem {
-      margin-bottom: 24px;
-    }
-  }
+}

@@ -9,6 +9,8 @@ import Footer from '../components/Footer';
 import HeaderComponent from '../components/Header';
 import Image from 'next/image';
 
+import axiosInstance from '../lib/axiosInstance';
+
 const { Title, Text } = Typography;
 const { Option } = Select;
 const { Content } = Layout;
@@ -28,7 +30,7 @@ const SignupPage = () => {
     setLoading(true);
     
     try {
-      await axios.post('https://drug-discovery-bn.onrender.com/users/create', {
+      await axiosInstance.post('/users/create', {
         email: values.email,
         password: values.password,
         fullName: values.fullName,
