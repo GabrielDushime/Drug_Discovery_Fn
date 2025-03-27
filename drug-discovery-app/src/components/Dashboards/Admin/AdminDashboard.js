@@ -22,7 +22,7 @@ import {
    Tooltip, Legend 
   } from 'recharts';
 
-  import axiosInstance from '../../../lib/axiosInstance';
+  import axios from 'axios';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -107,19 +107,19 @@ const DashboardPage = () => {
       setLoading(true);
       setError(null);
       try {
-        const usersResponse = await axiosInstance.get('/users', {
+        const usersResponse = await axios.get('https://drug-discovery-bn.onrender.com/users', {
           headers: {
             Authorization: `Bearer ${getAuthToken()}`,
           },
         });
         
-        const modelsResponse = await axiosInstance.get('/molecular-models/admin/all', {
+        const modelsResponse = await axios.get('https://drug-discovery-bn.onrender.com/molecular-models/admin/all', {
           headers: {
             Authorization: `Bearer ${getAuthToken()}`,
           },
         });
         
-        const simulationsResponse =  await axiosInstance.get('/simulations', {
+        const simulationsResponse =  await axios.get('https://drug-discovery-bn.onrender.com/simulations', {
           headers: {
             Authorization: `Bearer ${getAuthToken()}`,
           },

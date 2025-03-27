@@ -175,7 +175,7 @@ const ResearcherDashboardPage = () => {
           let simulations = [];
           
           try {
-            const modelsResponse = await axiosInstance.get(`/molecular-models`, {
+            const modelsResponse = await axios.get(`https://drug-discovery-bn.onrender.com/molecular-models`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -188,7 +188,7 @@ const ResearcherDashboardPage = () => {
           }
           
           try {
-            const simulationsResponse = await axiosInstance.get(`/simulations/my-simulations`, {
+            const simulationsResponse = await axios.get(`https://drug-discovery-bn.onrender.com/simulations/my-simulations`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
