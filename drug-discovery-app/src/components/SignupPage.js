@@ -9,7 +9,7 @@ import Footer from '../components/Footer';
 import HeaderComponent from '../components/Header';
 import Image from 'next/image';
 
-import axios from 'axios';
+
 
 const { Title, Text } = Typography;
 const { Option } = Select;
